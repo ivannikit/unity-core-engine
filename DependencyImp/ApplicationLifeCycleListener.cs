@@ -1,8 +1,9 @@
 ﻿using System;
+using UnityEngine;
 
 namespace TeamZero.Core.Unity
 {
-    public abstract class ApplicationLifeCycleListener : IApplicationLifeCycleListener
+    public class ApplicationLifeCycleListener : MonoBehaviour, IApplicationLifeCycleListener
     {
         public event Action ApplicationLaunch;
         public event Action ApplicationEarlyResume;
