@@ -1,0 +1,17 @@
+{
+    "name": "TeamZero.Core.Unity.Editor",
+    "references": [
+        "GUID:50664e5e50e75744696d23afebe3e065"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [
+        "Editor"
+    ],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
