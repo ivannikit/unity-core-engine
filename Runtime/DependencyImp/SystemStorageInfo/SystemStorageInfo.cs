@@ -11,6 +11,8 @@ namespace TeamZero.Core.Unity
             #elif UNITY_ANDROID
             //TODO: Override GetExternalPath
             return new UnityApplicationStorageInfo();
+            #elif UNITY_STANDALONE || UNITY_STANDALONE_WIN
+            return new UnityApplicationStorageInfo();
             #else
             //TODO: LogError
             return null;
