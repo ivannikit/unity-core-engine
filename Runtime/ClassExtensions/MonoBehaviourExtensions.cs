@@ -11,16 +11,14 @@ namespace Toolbox
         /// <param name="target"></param>
         /// <param name="mode"></param>
         /// <returns>RectTransform or null</returns>
-        public static RectTransform GetRectTransform(this MonoBehaviour target, LogMode mode = LogMode.None)
+        public static RectTransform GetRectTransform(this MonoBehaviour target, bool exception = false)
         {
             if (target == null)
-                throw new ArgumentNullException("target");
+                throw new ArgumentNullException(nameof(target));
 
             RectTransform rt = target.transform as RectTransform;
-            if ( rt == null && (mode & LogMode.Error) != 0)
-            {
+            if ( rt == null && exception)
                 throw new NullReferenceException("RectTransform");
-            }
 
             return rt;
         }
