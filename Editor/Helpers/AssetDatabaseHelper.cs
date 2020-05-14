@@ -6,29 +6,61 @@ using System.IO;
 using TeamZero.Core.Logging;
 using Object = UnityEngine.Object;
 
-namespace Toolbox.Editor
+namespace TeamZero.Core.Unity
 {
     public static class AssetDatabaseHelper
     {
+        public static string GetSystemPatch(string assetPath, TZLogger logger = null)
+        {
+            if (!string.IsNullOrEmpty(assetPath))
+            {
+                string assetsFolderPath = Path.GetDirectoryName(Application.dataPath);
+                return Path.Combine(assetsFolderPath, assetPath); 
+            }
+            else
+            {
+                logger?.Throw(new NullReferenceException());
+                return null;
+            }
+        }
+        
         /// <summary>
         /// Create folder by asset path if it's not exists
         /// </summary>
-        /// <param name="assetPath">Asset path</param>
-        public static void CreateFolder(string assetPath)
+        public static void CreateFolder(string assetPath, TZLogger logger = null)
         {
-            assetPath = Path.Combine(
-                Path.GetDirectoryName(Application.dataPath),
-                assetPath);
-
-            Directory.CreateDirectory(assetPath);
+            string systemPatch = GetSystemPatch(assetPath, logger);
+            Directory.CreateDirectory(systemPatch);
+        }
+        
+        /// <summary>
+        /// Delete empty folder by asset path if it's not exists
+        /// </summary>
+        public static void DeleteEmptyFoldersFromPatch(string assetPath, TZLogger logger = null)
+        {
+            string systemPatch = GetSystemPatch(assetPath, logger);
+            DirectoryInfo dir = new DirectoryInfo(systemPatch);
+            while (true)
+            {
+                if(dir == null)
+                    break;
+                
+                var files = dir.GetFiles();
+                if (files == null || files.Length == 0)
+                {
+                    Directory.Delete(dir.FullName);
+                    dir = dir.Parent;
+                }
+                else
+                {
+                    break;
+                }
+            }
         }
 
         /// <summary>
         /// Returns asset importer for asset object 
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="assetObject"></param>
-        /// <returns></returns>
         public static T GetAssetImporter<T>(Object assetObject) where T : AssetImporter
         {
             string path = AssetDatabase.GetAssetPath(assetObject);
@@ -66,13 +98,22 @@ namespace Toolbox.Editor
             TryCreateDirectory(assetFolderPath, logger);
             T inst = new T();
             AssetDatabase.CreateAsset(inst, assetFilePath);
-            SaveAndRefresh(inst);
+            SaveAndRefresh();
 
             logger?.Info($"An instance of {typeof(T).Name} was created in '{assetFilePath}'.");
             return inst;
         }
+        
+        public static bool DeleteAsset(string assetPath)
+        {
+            bool result = AssetDatabase.DeleteAsset(assetPath);
+            DeleteEmptyFoldersFromPatch(assetPath);
+            SaveAndRefresh();
 
-        public static void SaveAndRefresh(Object asset)
+            return result;
+        }
+
+        public static void SaveAndRefresh()
         {
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
