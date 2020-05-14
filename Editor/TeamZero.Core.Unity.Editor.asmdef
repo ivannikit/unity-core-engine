@@ -1,7 +1,8 @@
 {
     "name": "TeamZero.Core.Unity.Editor",
     "references": [
-        "GUID:50664e5e50e75744696d23afebe3e065"
+        "GUID:50664e5e50e75744696d23afebe3e065",
+        "GUID:76e119f3b648ef3418ce9b3b4a2731f4"
     ],
     "includePlatforms": [
         "Editor"
