@@ -46,7 +46,7 @@ namespace TeamZero.Core.Unity
                     break;
                 
                 var files = dir.GetFiles();
-                if (files == null || files.Length == 0)
+                if (files == null || files.Length == 0 || IsMetaFileOnlyInDirectory(files))
                 {
                     Directory.Delete(dir.FullName);
                     dir = dir.Parent;
@@ -56,6 +56,17 @@ namespace TeamZero.Core.Unity
                     break;
                 }
             }
+        }
+
+        private static bool IsMetaFileOnlyInDirectory(FileInfo[] files)
+        {
+            foreach (FileInfo file in files)
+            {
+                if (file.Extension != "meta")
+                    return false;
+            }
+
+            return true;
         }
 
         /// <summary>
@@ -107,9 +118,9 @@ namespace TeamZero.Core.Unity
         public static bool DeleteAsset(string assetPath)
         {
             bool result = AssetDatabase.DeleteAsset(assetPath);
-            DeleteEmptyFoldersFromPatch(assetPath);
+            string dirPath = assetPath.TrimEnd("Editor".ToCharArray());
+            DeleteEmptyFoldersFromPatch(dirPath);
             SaveAndRefresh();
-
             return result;
         }
 
