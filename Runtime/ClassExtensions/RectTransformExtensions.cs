@@ -1,8 +1,4 @@
-﻿#if UNITY_2018
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 namespace Toolbox
 {
@@ -20,4 +16,3 @@ namespace Toolbox
         }
     }
 }
-#endif
