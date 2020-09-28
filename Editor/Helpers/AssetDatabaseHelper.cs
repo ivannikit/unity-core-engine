@@ -10,7 +10,7 @@ namespace TeamZero.Core.Unity
 {
     public static class AssetDatabaseHelper
     {
-        public static string GetSystemPatch(string assetPath, TZLogger logger = null)
+        public static string GetSystemPatch(string assetPath, Log logger = null)
         {
             if (!string.IsNullOrEmpty(assetPath))
             {
@@ -19,7 +19,7 @@ namespace TeamZero.Core.Unity
             }
             else
             {
-                logger?.Throw(new NullReferenceException());
+                logger?.Error(new NullReferenceException());
                 return null;
             }
         }
@@ -27,7 +27,7 @@ namespace TeamZero.Core.Unity
         /// <summary>
         /// Create folder by asset path if it's not exists
         /// </summary>
-        public static void CreateFolder(string assetPath, TZLogger logger = null)
+        public static void CreateFolder(string assetPath, Log logger = null)
         {
             string systemPatch = GetSystemPatch(assetPath, logger);
             Directory.CreateDirectory(systemPatch);
@@ -36,7 +36,7 @@ namespace TeamZero.Core.Unity
         /// <summary>
         /// Delete empty folder by asset path if it's not exists
         /// </summary>
-        public static void DeleteEmptyFoldersFromPatch(string assetPath, TZLogger logger = null)
+        public static void DeleteEmptyFoldersFromPatch(string assetPath, Log logger = null)
         {
             string systemPatch = GetSystemPatch(assetPath, logger);
             DirectoryInfo dir = new DirectoryInfo(systemPatch);
@@ -81,7 +81,7 @@ namespace TeamZero.Core.Unity
             return AssetImporter.GetAtPath(path) as T;
         }
 
-        public static bool TryCreateDirectory(string assetFolderPath, TZLogger logger = null)
+        public static bool TryCreateDirectory(string assetFolderPath, Log logger = null)
         {
             bool result = false;
 
@@ -101,7 +101,7 @@ namespace TeamZero.Core.Unity
             return result;
         }
 
-        public static T CreateAsset<T>(string assetFolderPath, string fileName, TZLogger logger = null) where T : Object, new()
+        public static T CreateAsset<T>(string assetFolderPath, string fileName, Log logger = null) where T : Object, new()
         {
             string assetFilePath = Path.Combine(assetFolderPath, fileName);
             assetFilePath = AssetDatabase.GenerateUniqueAssetPath(assetFilePath);
