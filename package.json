@@ -1,0 +1,17 @@
+{
+  "name": "com.teamzero.core-unity",
+  "displayName": "TeamZero Core Unity",
+  "version": "1.0.0",
+  "unity": "2019.3",
+  "description": "TeamZero core Unity module",
+  "keywords": [
+    "TeamZero"
+  ],
+  "dependencies": {
+    "com.teamzero.core-csharp": "1.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.com:team_z/tools/core-unity.git#master"
+  }
+}
