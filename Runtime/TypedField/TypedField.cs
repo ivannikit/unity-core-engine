@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Toolbox.Inspector
+namespace TeamZero.Inspector
 {
     [System.Serializable]
     [TypeRistrictionTarget("_unityObject")]

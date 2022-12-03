@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Toolbox
+namespace TeamZero
 {
     public static class UnityClassesExtensions
     {

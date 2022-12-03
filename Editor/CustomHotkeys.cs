@@ -8,20 +8,23 @@ using UnityEngine.SceneManagement;
 
 namespace TeamZero.Core.Unity.UnityEditorUtility
 {
-    public class CustomHotkeys : ScriptableObject
+    public static class CustomHotkeys
     {
         [MenuItem("HotKey/Run \u2044 Stop _F5", false, 500)]
         private static void PlayGame() => EditorApplication.ExecuteMenuItem("Edit/Play");
 
+        
         [MenuItem("HotKey/Pause _F6", false, 501)]
         private static void PauseGame() => EditorApplication.ExecuteMenuItem("Edit/Pause");
 
+        
         [MenuItem("HotKey/Step _F7", false, 502)]
         private static void StepGame() => EditorApplication.ExecuteMenuItem("Edit/Step");
 
+        
         [MenuItem("HotKey/Step _F7", true)]
         private static bool StepGameCheck() => Application.isPlaying;
-
+        
         
         [MenuItem("HotKey/Clear Console _F8", false, 900)]
         private static void ClearConsole()
@@ -32,6 +35,7 @@ namespace TeamZero.Core.Unity.UnityEditorUtility
             method.Invoke(new object(), null);
         }
 
+        
         [MenuItem("HotKey/Create children _%&N", false, 901)]
         private static void CreateChildren()
         {
@@ -55,32 +59,7 @@ namespace TeamZero.Core.Unity.UnityEditorUtility
                 Selection.SetActiveObjectWithContext(go, Selection.activeContext);
         }
 
-        [MenuItem("HotKey/Take screenshot _F10", false, 902)]
-        public static void Capture()
-        {
-            DateTime time = DateTime.Now;
-            string scrName = string.Format("Screenshot_{2}_{1:00}_{0:00}_{3:00}_{4:00}_{5:00}.png",
-                time.Day, time.Month, time.Year, time.Hour, time.Minute, time.Second);
-
-            ScreenCapture.CaptureScreenshot(scrName, 1);
-
-            Debug.Log(scrName + " saved to the project folder!");
-        }
-
-        [MenuItem("HotKey/Enable \u2044 Disable selected GO _F4", false, 903)]
-        private static void ChangeSelectedObjectState()
-        {
-            GameObject go = Selection.activeGameObject;
-            go.SetActive(!go.activeSelf);
-            EditorSceneManager.MarkSceneDirty(go.scene);
-        }
-
-        [MenuItem("HotKey/Enable \u2044 Disable selected GO _F4", true, 903)]
-        private static bool ChangeSelectedObjectStateCheck()
-        {
-            return Selection.activeGameObject;
-        }
-
+        
         [MenuItem("HotKey/Clear saved data _%F12", false, 800)]
         private static void ClearSavedData()
         {
@@ -93,7 +72,6 @@ namespace TeamZero.Core.Unity.UnityEditorUtility
             }
 
             DeleteFolder(path);
-
             Debug.Log("Saved data successfully cleared!");
         }
 
@@ -111,6 +89,7 @@ namespace TeamZero.Core.Unity.UnityEditorUtility
             Directory.Delete(path);
         }
 
+        
         [MenuItem("HotKey/Delete all PlayerPrefs _%#F12", false, 801)]
         private static void DeletePlayerPrefs()
         {
@@ -118,28 +97,23 @@ namespace TeamZero.Core.Unity.UnityEditorUtility
             Debug.Log("Player prefs successfully cleared!");
         }
         
+        
         private static Scene _lastClosed;
-
+        
         [MenuItem("HotKey/Scenes/Unload selected _%w", false, 600)]
-        private static void UnloadSelectedScene()
-        {
+        private static void UnloadSelectedScene() => 
             SaveSelectedSceneOrLastAndClose(false);
-        }
 
+        
         [MenuItem("HotKey/Scenes/Remove selected _%#w", false, 601)]
-        private static void RemoveScene()
-        {
+        private static void RemoveScene() => 
             SaveSelectedSceneOrLastAndClose(true);
-        }
 
         private static void SaveSelectedSceneOrLastAndClose(bool unload)
         {
             GameObject selection = Selection.activeGameObject;
-            Scene scene;
-            if (selection)
-                scene = selection.scene;
-            else
-                scene = EditorSceneManager.GetSceneAt(EditorSceneManager.sceneCount - 1);
+            Scene scene = selection ? selection.scene 
+                : EditorSceneManager.GetSceneAt(EditorSceneManager.sceneCount - 1);
 
             if (EditorSceneManager.SaveModifiedScenesIfUserWantsTo(new Scene[] {scene}))
             {
@@ -148,16 +122,14 @@ namespace TeamZero.Core.Unity.UnityEditorUtility
             }
         }
 
+        
         [MenuItem("HotKey/Scenes/Reopen last closed _%t", false, 602)]
-        private static void LoadLastUnloadedScene()
-        {
+        private static void LoadLastUnloadedScene() =>
             EditorSceneManager.OpenScene(_lastClosed.path, OpenSceneMode.Additive);
-        }
 
+        
         [MenuItem("HotKey/Scenes/Reopen last closed _%t", true, 602)]
-        private static bool LoadLastUnloadedSceneCheck()
-        {
-            return _lastClosed.IsValid();
-        }
+        private static bool LoadLastUnloadedSceneCheck() =>
+            _lastClosed.IsValid();
     }
 }
