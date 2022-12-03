@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Toolbox.Events
+namespace TeamZero.Events
 {
     [Serializable]
     public class StringUnityEvent : UnityEvent<String> { }

@@ -6,12 +6,8 @@ using System.Threading.Tasks;
 
 namespace TeamZero.Core.Unity
 {
-	public interface IMainThread
-	{
-		void Dispatch(Action action);
-	}
-
-	public class MainThreadDispatcher : MonoBehaviour, IMainThread
+	[Obsolete]
+	public class MainThreadDispatcher : MonoBehaviour
 	{
 		private static readonly Queue<Action> _executionQueue = new Queue<Action>();
 

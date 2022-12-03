@@ -2,7 +2,7 @@
 using UnityEditor;
 using System.Linq;
 
-namespace Toolbox.Inspector
+namespace TeamZero.Inspector
 {
     [CustomPropertyDrawer(typeof(TypeRistrictionAttribute))]
     public class TypeRistrictionAttibuteDrawer : PropertyDrawer

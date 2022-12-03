@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Toolbox.Inspector
+namespace TeamZero.Inspector
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct, Inherited = true/*, AllowMultiple = true*/ )]
     public class TypeRistrictionTargetAttribute : PropertyAttribute

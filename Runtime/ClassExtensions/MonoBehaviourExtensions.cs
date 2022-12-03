@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Toolbox
+namespace TeamZero
 {
     public static class MonoBehaviourExtensions
     {

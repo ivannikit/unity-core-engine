@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace TeamZero
 {
-    [DisallowMultipleComponent]
+    [DisallowMultipleComponent][Obsolete("Use ApplicationLifeCycleListener instead")]
     public class ApplicationDelegate : MonoBehaviour
     {
         private bool _isShuttingDown = false;
