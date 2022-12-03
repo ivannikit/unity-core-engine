@@ -3,7 +3,7 @@ using System;
 using UnityEngine;
 using UnityEditor;
 using System.IO;
-using TeamZero.Core.Logging;
+using TeamZero.Logging;
 using Object = UnityEngine.Object;
 
 namespace TeamZero.Core.Unity
