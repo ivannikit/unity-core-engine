@@ -1,6 +1,6 @@
 {
   "name": "com.teamzero.core-unity",
-  "displayName": "TeamZero Core Unity",
+  "displayName": "TZ Core Unity",
   "version": "1.0.0",
   "unity": "2019.3",
   "description": "TeamZero core Unity module",
@@ -8,7 +8,7 @@
     "TeamZero"
   ],
   "dependencies": {
-    "com.teamzero.core-csharp": "1.0.1"
+    "com.teamzero.core-csharp": "1.0.2"
   },
   "repository": {
     "type": "git",
